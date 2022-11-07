@@ -44,14 +44,16 @@ def registrar():
     nuevo_producto(Codigo,Nombre,Precio)
     print('Producto registrado exitosamente')
 def eliminar():
-    print('opcion eliminar')
+    eliminar_producto()
+    print('Producto Eliminado exitosamente')
 def editar():
-    print('opcion editar')
+    editar_producto()
+    print('Produto editado correctamente')
 def listar():
     print('Lista de Productos:\nidpro\tcodigo\tnombre\tprecio ')
     listar_productos()
 def salir():
-    print('opcion salir')
+    print('Saliendo del sistema')
 
 #-------------------------------------------------------
 #Metodos Base de Datos
@@ -114,11 +116,34 @@ def listar_productos():
         print(f'{listid[i][0]}\t{listcod[i][0]}\t{listna[i][0]}\t{listpr[i][0]}')       
         i +=1   
 
+def eliminar_producto():
+    id = input('Ingrese el id del producto a eliminar: ')
+    conn = sql.connect("Arones_Bravo_Huanuco_Nanquen_almacen.db")
+    cursor = conn.cursor()
+    instruccion = f"DELETE FROM Producto WHERE idproducto='{id}'"
+    cursor.execute(instruccion)
+    conn.commit()
+    conn.close()
+
+def editar_producto():
+    id = input('Ingrese el id del producto a editar: ')
+    
+    Cnew=input('Nuevo codigo: ')
+    Nnew=input('Nuevo nombre: ')
+    Pnew=input('Nuevo precio: ')
+
+    conn = sql.connect("Arones_Bravo_Huanuco_Nanquen_almacen.db")
+    cursor = conn.cursor()
+    instruccion = f"UPDATE Producto SET codigo = '{Cnew}', nombre = '{Nnew}',precio = '{Pnew}' WHERE idproducto ='{id}'"
+    cursor.execute(instruccion)
+    conn.commit()
+    conn.close()    
 
 
 
 
 
+#-------------------------------------------------------------------------------------------
 if __name__ == "__main__" :
     lista_productos = [
        ("PRO01","Impresora L3210",699),
